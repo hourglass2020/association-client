@@ -6,7 +6,7 @@ export default function CourseComments({comments}) {
                 {comments.map((comment, index) => (<li
                     className="card-box card my-2 p-3 d-flex justify-content-between align-items-start"
                     key={`comment${index}`}>
-                    <div className="ms-2 me-auto">
+                    <div className="ms-0 me-2">
                         <div className={"d-flex"}>
                             <div className="fw-bold">{comment.name}</div>
                             <span className={"mx-2"}>|</span>

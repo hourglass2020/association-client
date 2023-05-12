@@ -9,7 +9,7 @@ export default function CourseContent({contents}){
                 {contents.map(content => (<li
                     className="card-box card my-2 p-3 d-flex justify-content-between align-items-start"
                     key={content.title}>
-                    <div className="ms-2 me-auto">
+                    <div className="ms-0 me-2">
                         <div className="fw-bold">{content.title}</div>
                         <p className={"text-muted m-0"}>
                             {content.content}
