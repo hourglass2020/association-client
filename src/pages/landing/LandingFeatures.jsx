@@ -1,9 +1,9 @@
 import {Col, Container, Row} from "react-bootstrap";
 
-import Magazine from "../../assets/icons/logo.png";
-import Article from "../../assets/icons/android.png";
-import Course from "../../assets/icons/backend.png";
-import Webinar from "../../assets/icons/website.png";
+import Magazine from "../../assets/icons/talangor.png";
+import Article from "../../assets/icons/blog.png";
+import Course from "../../assets/icons/course.png";
+import Webinar from "../../assets/icons/webinar.png";
 import FeatureCard from "../../components/cards/FeatureCard.jsx";
 
 const features = [
@@ -11,7 +11,7 @@ const features = [
         title: "دوره ها", image: Course, link: "/courses"
     },
     {
-        title: "مقالات", image: Article, link: "/articles"
+        title: "مقالات", image: Article, link: "/blog"
     },
     {
         title: "وبینارها", image: Webinar, link: "/webinars"

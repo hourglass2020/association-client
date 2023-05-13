@@ -11,7 +11,7 @@ export default function FeatureCard({title, image, link}) {
         <div className={"card-box feature-card mt-3 mt-lg-0"} onClick={onClick}>
             <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
                 <img src={image} alt={title} height={50} width={50}/>
-                <h3 className={"mt-2"}>{title}</h3>
+                <h3 className={"mt-2 me-1"}>{title}</h3>
             </div>
         </div>
     )

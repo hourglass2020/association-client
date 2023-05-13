@@ -6,6 +6,9 @@ import Image2 from "../../assets/images/pic2.jpg";
 import Image3 from "../../assets/images/pic3.jpg";
 import Image4 from "../../assets/images/pic6.jpg";
 import Image5 from "../../assets/images/pic5.jpg";
+import BlogSlide from "./BlogSlide.jsx";
+import BlogNews from "./BlogNews.jsx";
+import BlogPopular from "./BlogPopular.jsx";
 
 export default function Blog() {
     return (<div>
@@ -17,58 +20,48 @@ export default function Blog() {
         <Container className={"mt-4"}>
             <Row className={"position-relative"}>
                 <Col lg={8} md={12} className={" position-relative h-100"}>
-                    <article style={{position: "relative"}}>
-                        <Image src={Image2} className={"w-100"} style={{backgroundSize: "cover"}} rounded/>
-                        <div className={"intro-item-caption"}></div>
-                        <h4 style={{
-                            position: "absolute",
-                            bottom: "8px",
-                            right: "16px",
-                            color: "white",
-                            zIndex: 10
-                        }}>salam</h4>
-                    </article>
+                    <BlogSlide/>
                 </Col>
-                <Col lg={4} md={12}>
+                <Col lg={4} md={12} className={"mt-3 mt-lg-0"}>
                     <Row>
                         <Col>
-
-                            <article style={{position: "relative"}}>
-                                <Image src={Image3} className={"w-100"} rounded/>
-                                <div className={"intro-item-caption"}></div>
-                                <h4 style={{
-                                    position: "absolute",
-                                    bottom: "8px",
-                                    right: "16px",
-                                    color: "white",
-                                    zIndex: 10
-                                }}>salam</h4>
-                            </article>
+                            <BlogSlide/>
                         </Col>
                     </Row>
                     <Row className={"mt-3"}>
                         <Col>
-
-                            <article style={{position: "relative"}}>
-                                <Image src={Image3} className={"w-100"} rounded/>
-                                <div className={"intro-item-caption"}></div>
-                                <h4 style={{
-                                    position: "absolute",
-                                    bottom: "8px",
-                                    right: "16px",
-                                    color: "white",
-                                    zIndex: 10
-                                }}>salam</h4>
-                            </article>
+                            <BlogSlide/>
                         </Col>
                     </Row>
                 </Col>
             </Row>
-            <Row className={"mt-4"}>
+
+
+            <Row className={"mt-5"}>
                 <Col lg={8} md={12}>
                     <h3 className={"title"}>جدیدترین مقالات</h3>
+                    <BlogNews/>
+                    <Row>
+                        <Col lg={6} md={12}>
+                            <BlogNews/>
+                        </Col>
+                        <Col lg={6} md={12}>
+                            <BlogNews/>
+                        </Col>
+                    </Row>
                 </Col>
-                <Col lg={4} md={12}></Col>
+                <Col lg={4} md={12}>
+                    <h3 className={"title"}>محبوب ترین مقالات</h3>
+                    <Row>
+                        <BlogPopular/>
+                    </Row>
+                    <Row>
+                        <BlogPopular/>
+                    </Row>
+                    <Row>
+                        <BlogPopular/>
+                    </Row>
+                </Col>
             </Row>
         </Container>
     </div>)
