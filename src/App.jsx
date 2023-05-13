@@ -10,6 +10,7 @@ import Landing from "./pages/landing/Landing.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import {Courses} from "./pages/courses/Courses.jsx";
 import Course from "./pages/course/Course.jsx";
+import Blog from "./pages/blog/Blog.jsx";
 
 const router = createBrowserRouter([
     {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
             {
                 path: "courses/:courseId",
                 element: <Course/>
+            },
+            {
+                path:"blog",
+                element: <Blog/>
             }
         ]
     }
