@@ -11,6 +11,8 @@ import NotFound from "./pages/NotFound.jsx";
 import {Courses} from "./pages/courses/Courses.jsx";
 import Course from "./pages/course/Course.jsx";
 import Blog from "./pages/blog/Blog.jsx";
+import {Webinars} from "./pages/webinars/Webinars.jsx";
+import Webinar from "./pages/webinar/Webinar.jsx";
 
 const router = createBrowserRouter([
     {
@@ -34,8 +36,16 @@ const router = createBrowserRouter([
                 element: <Course/>
             },
             {
-                path:"blog",
+                path: "blog",
                 element: <Blog/>
+            },
+            {
+                path: "webinars",
+                element: <Webinars/>
+            },
+            {
+                path: "webinars/:webinarId",
+                element: <Webinar/>
             }
         ]
     }

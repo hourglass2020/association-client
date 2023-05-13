@@ -1,11 +1,11 @@
 import {Image} from "react-bootstrap";
-import Image2 from "../../assets/images/pic2.jpg";
+import Image7 from "../../assets/images/pic9.jpg";
 import {BsFillChatFill, BsFillHandThumbsUpFill} from "react-icons/all.js";
 
 export default function BlogPopular() {
     return (
         <article className={"card-box d-flex mb-3 py-2 px-2 w-100 align-items-center"} style={{ borderRadius: 10}}>
-            <Image src={Image2}
+            <Image src={Image7}
                    style={{backgroundSize: "cover", width: 80, height: 80, marginInlineEnd: 10}} rounded/>
             <div className={"w-100 d-flex flex-column justify-content-center align-items-center"}>
                 <p style={{fontSize:15}} className={"fw-bold m-0"}>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ</p>

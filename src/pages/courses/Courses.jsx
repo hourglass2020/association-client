@@ -1,5 +1,5 @@
 import {Helmet} from "react-helmet-async";
-import {Col, Row, Container} from "react-bootstrap";
+import {Col, Row, Container, Image} from "react-bootstrap";
 
 import CourseCard from "./CourseCard.jsx";
 
@@ -8,6 +8,7 @@ import ManageImage from "../../assets/images/pic5.jpg"
 import Image1 from "../../assets/images/pic1.jpg"
 import Image2 from "../../assets/images/pic2.jpg"
 import Image3 from "../../assets/images/pic3.jpg"
+import Course from "../../assets/icons/course.png";
 
 const courseData = [
     {
@@ -45,7 +46,10 @@ export function Courses() {
                 <title>دوره های انجمن</title>
             </Helmet>
             <Container>
-                <h3 className={"mt-4"}>دوره های انجمن علمی برق</h3>
+                <div className={"d-flex align-items-center"}>
+                    <Image src={Course} alt={"course"} className={"mt-2 ms-2"} height={50} width={50}/>
+                    <h3 className={"mt-4"}>دوره های انجمن علمی برق</h3>
+                </div>
                 <Row className={"mt-3 mb-4"}>
                     {
                         courseData.map(course => (
