@@ -11,7 +11,6 @@ export default function CourseComments({comments}) {
                             <div className="fw-bold">{comment.name}</div>
                             <span className={"mx-2"}>|</span>
                             <div className="fw-bold">{comment.date}</div>
-
                         </div>
                         <p className={"text-muted m-0"}>
                             {comment.comment}
