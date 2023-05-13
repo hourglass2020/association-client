@@ -9,7 +9,7 @@ export default function CourseCard({title, image, price, link}) {
     }
 
     return (
-        <Card className={"card-box mt-3 mt-lg-0"}>
+        <Card className={"card-box mt-3 mt-lg-3"}>
             <Card.Img height={150} variant={"top"} src={image} alt={title}/>
             <Card.Body>
                 <Card.Title>{title}</Card.Title>

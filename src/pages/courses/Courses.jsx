@@ -1,9 +1,13 @@
 import {Helmet} from "react-helmet-async";
 import {Col, Row, Container} from "react-bootstrap";
 
+import CourseCard from "./CourseCard.jsx";
+
 import GitImage from "../../assets/images/pic4.png"
 import ManageImage from "../../assets/images/pic5.jpg"
-import CourseCard from "./CourseCard.jsx";
+import Image1 from "../../assets/images/pic1.jpg"
+import Image2 from "../../assets/images/pic2.jpg"
+import Image3 from "../../assets/images/pic3.jpg"
 
 const courseData = [
     {
@@ -16,6 +20,21 @@ const courseData = [
         image: ManageImage,
         price: 150000,
         link: "/courses/management"
+    }, {
+        title: "دوره 1",
+        image: Image1,
+        price: 150000,
+        link: "/courses/course1"
+    }, {
+        title: "دوره 2",
+        image: Image2,
+        price: 150000,
+        link: "/courses/course2"
+    }, {
+        title: "دوره 3",
+        image: Image3,
+        price: 150000,
+        link: "/courses/course3"
     },
 ]
 
