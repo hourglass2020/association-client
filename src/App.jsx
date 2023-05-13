@@ -13,6 +13,7 @@ import Course from "./pages/course/Course.jsx";
 import Blog from "./pages/blog/Blog.jsx";
 import {Webinars} from "./pages/webinars/Webinars.jsx";
 import Webinar from "./pages/webinar/Webinar.jsx";
+import Talangor from "./pages/talangor/Talangor.jsx";
 
 const router = createBrowserRouter([
     {
@@ -46,6 +47,9 @@ const router = createBrowserRouter([
             {
                 path: "webinars/:webinarId",
                 element: <Webinar/>
+            }, {
+                path: "talangor",
+                element: <Talangor/>
             }
         ]
     }
@@ -54,8 +58,8 @@ const router = createBrowserRouter([
 function App() {
     return (
         <div dir={"rtl"}>
-            <Toaster position={"bottom-left"}/>
             <ThemeProvider>
+                <Toaster position={"bottom-left"}/>
                 <HelmetProvider>
                     <RouterProvider router={router}/>
                 </HelmetProvider>
