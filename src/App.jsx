@@ -1,71 +1,82 @@
-import {useState} from 'react'
-
-import {Button, ThemeProvider} from "react-bootstrap";
-import {Toaster} from "react-hot-toast";
-import {HelmetProvider} from "react-helmet-async";
-import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import { ThemeProvider } from "react-bootstrap";
+import { Toaster } from "react-hot-toast";
+import { HelmetProvider } from "react-helmet-async";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import MainLayout from "./layouts/MainLayout.jsx";
 import Landing from "./pages/landing/Landing.jsx";
 import NotFound from "./pages/NotFound.jsx";
-import {Courses} from "./pages/courses/Courses.jsx";
+import { Courses } from "./pages/courses/Courses.jsx";
 import Course from "./pages/course/Course.jsx";
 import Blog from "./pages/blog/Blog.jsx";
-import {Webinars} from "./pages/webinars/Webinars.jsx";
+import { Webinars } from "./pages/webinars/Webinars.jsx";
 import Webinar from "./pages/webinar/Webinar.jsx";
 import Talangor from "./pages/talangor/Talangor.jsx";
+import Dashboard from "./pages/dashboard/Dashboard.jsx";
+import DashboardLanding from "./pages/dashboard/DashboardLanding.jsx";
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <MainLayout/>,
+        element: <MainLayout />,
         children: [
             {
                 path: "",
-                element: <Landing/>
+                element: <Landing />,
             },
             {
                 path: "*",
-                element: <NotFound/>
+                element: <NotFound />,
             },
             {
                 path: "courses",
-                element: <Courses/>
+                element: <Courses />,
             },
             {
                 path: "courses/:courseId",
-                element: <Course/>
+                element: <Course />,
             },
             {
                 path: "blog",
-                element: <Blog/>
+                element: <Blog />,
             },
             {
                 path: "webinars",
-                element: <Webinars/>
+                element: <Webinars />,
             },
             {
                 path: "webinars/:webinarId",
-                element: <Webinar/>
-            }, {
+                element: <Webinar />,
+            },
+            {
                 path: "talangor",
-                element: <Talangor/>
-            }
-        ]
-    }
-])
+                element: <Talangor />,
+            },
+        ],
+    },
+    {
+        path: "/dashboard",
+        element: <Dashboard />,
+        children: [
+            {
+                path: "",
+                element: <DashboardLanding />,
+            },
+        ],
+    },
+]);
 
 function App() {
     return (
         <div dir={"rtl"}>
             <ThemeProvider>
-                <Toaster position={"bottom-left"}/>
+                <Toaster position={"bottom-left"} />
                 <HelmetProvider>
-                    <RouterProvider router={router}/>
+                    <RouterProvider router={router} />
                 </HelmetProvider>
             </ThemeProvider>
         </div>
-    )
+    );
 }
 
-export default App
+export default App;

@@ -1,33 +1,33 @@
-import {Button} from "react-bootstrap";
-import {BsCash, BsClockFill, BsFillInfoCircleFill, BsLayersFill, BsPersonCircle} from "react-icons/all.js";
+import { Button } from "react-bootstrap";
+import { BsCash, BsClockFill, BsFillInfoCircleFill, BsLayersFill, BsPersonCircle } from "react-icons/all.js";
 
-export default function CourseInfo({data}) {
+export default function CourseInfo({ data }) {
     return (
         <section className={"card-box card px-0 pt-3"}>
-            <ul style={{listStyle: "none"}}>
+            <ul style={{ listStyle: "none" }}>
                 <li className={"d-flex"}>
-                    <BsCash style={{fontSize: 25, color: "green"}}/>
-                    <p className={"me-3"}>قیمت دوره: 120000 تومان</p>
+                    <BsCash style={{ fontSize: 25, color: "green" }} />
+                    <p className={"me-3"}>قیمت دوره: {data.price} تومان</p>
                 </li>
-                <div className={"bg-dark bg-opacity-25 mb-3"} style={{height: 1}}></div>
+                <div className={"bg-dark bg-opacity-25 mb-3"} style={{ height: 1 }}></div>
                 <li className={"d-flex"}>
-                    <BsPersonCircle style={{fontSize: 20, color: "gray"}}/>
+                    <BsPersonCircle style={{ fontSize: 20, color: "gray" }} />
                     <p className={"me-3"}>مدرس دوره: پوریا اقدم پور</p>
                 </li>
                 <li className={"d-flex"}>
-                    <BsClockFill style={{fontSize: 20, color: "gray"}}/>
-                    <p className={"me-3"}>مدت دوره: 20 ساعت</p>
+                    <BsClockFill style={{ fontSize: 20, color: "gray" }} />
+                    <p className={"me-3"}>مدت دوره: {data.length}</p>
                 </li>
                 <li className={"d-flex"}>
-                    <BsLayersFill style={{fontSize: 20, color: "gray"}}/>
-                    <p className={"me-3"}>سطح دوره: متوسط</p>
+                    <BsLayersFill style={{ fontSize: 20, color: "gray" }} />
+                    <p className={"me-3"}>سطح دوره: {data.level}</p>
                 </li>
                 <li className={"d-flex"}>
-                    <BsFillInfoCircleFill style={{fontSize: 20, color: "gray"}}/>
+                    <BsFillInfoCircleFill style={{ fontSize: 20, color: "gray" }} />
                     <p className={"me-3"}> وضعیت دوره:
                         <span className={"text-info"}>
-                                       {" "} در حال ثبت نام
-                                    </span>
+                            در حال ثبت نام
+                        </span>
                     </p>
                 </li>
             </ul>

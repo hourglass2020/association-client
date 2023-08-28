@@ -1,12 +1,12 @@
-import {Container, Nav, Navbar} from "react-bootstrap";
-import {Link} from "react-router-dom";
+import { Container, Nav, Navbar } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 
 export default function HeaderNav() {
     return (
-        <Navbar bg={"dark"} expand={"lg"} variant={"dark"}>
+        <Navbar expand={"lg"} variant={"dark"} style={{ backgroundColor: "#6600ff" }}>
             <Container>
-                <Link to={"/"} style={{textDecoration: "none"}}>
+                <Link to={"/"} style={{ textDecoration: "none" }}>
                     <Navbar.Brand>انجمن علمی برق</Navbar.Brand>
                 </Link>
                 <Navbar.Toggle aria-controls={"navbar-collapse"}></Navbar.Toggle>
