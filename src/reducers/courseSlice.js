@@ -7,7 +7,7 @@ const initialState = [
         price: 120000,
         level: "elementry",
         length: "2h",
-        startDate: new Date().toISOString(),
+        startDate: "2023-01-02",
         courseType: "course",
         courseStatus: "stopped",
         image: "pic7.jpg",
@@ -19,7 +19,7 @@ const initialState = [
         price: 140000,
         level: "elementry",
         length: "4h",
-        startDate: new Date().toISOString(),
+        startDate: "2023-06-23",
         courseType: "course",
         courseStatus: "stopped",
         image: "pic8.jpg",
@@ -30,7 +30,27 @@ const initialState = [
 const courseSlice = createSlice({
     name: "courses",
     initialState,
-    reducers: {}
+    reducers: {
+        /* courseAdded: (state, action) => {
+            state.push(action.payload);
+        } */
+        // Complex logic
+        courseAdded: {
+            reducer(state, action) {
+                state.push(action.payload);
+            },
+            prepare(courseBody) {
+                return {
+                    payload: {
+                        id: nanoid(),
+                        ...courseBody
+                    }
+                }
+            }
+        }
+    }
 });
+
+export const { courseAdded } = courseSlice.actions;
 
 export default courseSlice.reducer;

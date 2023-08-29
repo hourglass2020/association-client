@@ -5,6 +5,7 @@ import { Col, Row, Container, Image } from "react-bootstrap";
 import CourseCard from "./CourseCard.jsx";
 
 import Course from "../../assets/icons/course.png";
+import { Link } from "react-router-dom";
 
 export function Courses() {
 
@@ -20,6 +21,7 @@ export function Courses() {
                 <div className={"d-flex align-items-center"}>
                     <Image src={Course} alt={"course"} className={"mt-2 ms-2"} height={50} width={50} />
                     <h3 className={"mt-4"}>دوره های انجمن علمی برق</h3>
+                    <Link to="../dashboard">افزودن دوره جدید</Link>
                 </div>
                 <Row className={"mt-3 mb-4"}>
                     {
