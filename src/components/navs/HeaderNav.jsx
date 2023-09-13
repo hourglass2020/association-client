@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function HeaderNav() {
     return (
-        <Navbar expand={"lg"} variant={"dark"} style={{ backgroundColor: "#6600ff" }}>
+        <Navbar expand={"lg"} variant={"dark"} style={{ backgroundColor: "#5c00e6" }}>
             <Container>
                 <Link to={"/"} style={{ textDecoration: "none" }}>
                     <Navbar.Brand>انجمن علمی برق</Navbar.Brand>

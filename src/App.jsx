@@ -14,6 +14,7 @@ import Webinar from "./pages/webinar/Webinar.jsx";
 import Talangor from "./pages/talangor/Talangor.jsx";
 import Dashboard from "./pages/dashboard/Dashboard.jsx";
 import DashboardLanding from "./pages/dashboard/DashboardLanding.jsx";
+import EditCourse from "./pages/dashboard/EditCourse.jsx";
 
 const router = createBrowserRouter([
     {
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
                 path: "",
                 element: <DashboardLanding />,
             },
+            {
+                path: "edit-course/:courseId",
+                element: <EditCourse />
+            }
         ],
     },
 ]);

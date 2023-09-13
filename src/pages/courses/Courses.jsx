@@ -6,11 +6,13 @@ import CourseCard from "./CourseCard.jsx";
 
 import Course from "../../assets/icons/course.png";
 import { Link } from "react-router-dom";
+import { selectAllCourses } from "../../reducers/courseSlice.js";
 
 export function Courses() {
 
-    const courses = useSelector(state => state.courses);
+    const courses = useSelector(selectAllCourses);
 
+    const orderedCourses = courses.slice().sort((a, b) => b.price - a.price);
 
     return (
         <div>
@@ -25,7 +27,7 @@ export function Courses() {
                 </div>
                 <Row className={"mt-3 mb-4"}>
                     {
-                        courses.map(course => (
+                        orderedCourses.map(course => (
                             <Col sm={12} md={6} lg={3} key={course.id}>
                                 <CourseCard title={course.title}
                                     image={course.image}

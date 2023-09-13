@@ -1,25 +1,20 @@
-import { Link, useParams } from "react-router-dom";
-import {
-    Alert,
-    Button,
-    Card,
-    Col,
-    Container,
-    Row,
-} from "react-bootstrap";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { Alert, Button, Card, Col, Container, Row } from "react-bootstrap";
 import { Helmet } from "react-helmet-async";
 
 import CourseDescription from "./CourseDescription.jsx";
 import CourseContent from "./CourseContents.jsx";
 import CourseComments from "./CourseComments.jsx";
 import CourseInfo from "./CourseInfo.jsx";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { courseDeleted, selectCourseById } from "../../reducers/courseSlice.js";
 
 export default function Course() {
+    const navigator = useNavigate();
+    const dispatch = useDispatch();
+
     const { courseId } = useParams();
-    const course = useSelector((state) =>
-        state.courses.find((course) => course.id == courseId)
-    );
+    const course = useSelector(state => selectCourseById(state, courseId));
 
     if (!course) {
         return (
@@ -29,7 +24,14 @@ export default function Course() {
                     <Button>برگشت به دوره ها</Button>
                 </Link>
             </div>
-        )
+        );
+    }
+
+    const handleDelete = () => {
+        if (course) {
+            dispatch(courseDeleted({ id: course.id }));
+            navigator("/courses");
+        }
     }
 
     return (
@@ -38,6 +40,18 @@ export default function Course() {
                 <title>{`دوره ${course.title}`}</title>
             </Helmet>
             <Container className={"mt-4"}>
+                <Row>
+
+                    <Button
+                        onClick={() => navigator(`../dashboard/edit-course/${courseId}`)}
+                    >
+                        ویرایش دوره
+                    </Button>
+
+                    <Button variant="danger" onClick={handleDelete}>
+                        حذف دوره
+                    </Button>
+                </Row>
                 <Row>
                     <Col sm={12} lg={4}>
                         <CourseInfo data={course} />
