@@ -22,6 +22,7 @@ const initialState = [
 ]
 
 const articleSlice = createSlice({
+    name: "articles",
     initialState: initialState,
     reducers: {
         articleAdded: {
