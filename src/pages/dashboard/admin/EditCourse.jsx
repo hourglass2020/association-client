@@ -1,28 +1,29 @@
 import React, { useState } from "react";
-import { Form, Row, Col, InputGroup, Button, Container } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { courseUpdated, selectCourseById } from "../../../reducers/courseSlice";
+import { Container, Form, Row, Button, Col, Alert } from "react-bootstrap";
+import Divider from "../../../components/Divider";
 
-import Divider from "../../components/Divider";
-import { useDispatch } from "react-redux";
-import { nanoid } from "@reduxjs/toolkit";
-import { courseAdded } from "../../reducers/courseSlice";
-import { useNavigate } from "react-router-dom";
-
-export default function DashboardLanding() {
+export default function EditCourse() {
+    const { courseId } = useParams();
     const navigator = useNavigate();
     const dispatch = useDispatch();
 
-    const [form, setForm] = useState({
-        title: "",
-        price: 0,
-        level: "",
-        length: "",
-        startDate: "",
-        endDate: "",
-        courseType: "",
-        courseStatus: "",
-        image: "pic6.jpg",
-        description: "",
-    });
+    const course = useSelector(state => selectCourseById(state, courseId));
+
+    if (!course) {
+        return (
+            <div style={{ margin: "2%" }}>
+                <Alert variant="danger">دوره مورد نظر موجود نیست.</Alert>
+                <Link to={"/courses"}>
+                    <Button>برگشت به دوره ها</Button>
+                </Link>
+            </div>
+        )
+    }
+
+    const [form, setForm] = useState(course);
 
     const [validated, setValidated] = useState(false);
 
@@ -34,15 +35,17 @@ export default function DashboardLanding() {
         event.preventDefault();
         const formState = event.currentTarget;
 
-        if (formState.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-            return;
-        }
+        /* 
+                if (formState.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    return;
+                } */
+        console.log("salam")
 
-        dispatch(courseAdded(form));
+        dispatch(courseUpdated(form));
 
-        navigator("../courses");
+        navigator(`../../courses/${courseId}`);
 
         setValidated(true);
     };
@@ -195,10 +198,8 @@ export default function DashboardLanding() {
                     </Form.Group>
                 </Row>
                 <div className="d-flex justify-content-end">
-                    <Button type="submit" >
-                        ثبت نام دوره
-                    </Button>
                 </div>
+                <Button type="submit">ویرایش دوره</Button>
             </Form>
         </Container>
     );
