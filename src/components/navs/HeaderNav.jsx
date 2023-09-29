@@ -1,4 +1,4 @@
-import { Container, Nav, Navbar } from "react-bootstrap";
+import { Button, Container, Nav, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 
@@ -11,11 +11,17 @@ export default function HeaderNav() {
                 </Link>
                 <Navbar.Toggle aria-controls={"navbar-collapse"}></Navbar.Toggle>
                 <Navbar.Collapse id={"navbar-collapse"} className={"mt-1 me-2"}>
-                    <Nav>
+                    <Nav className="w-100">
                         <Nav.Link>درباره انجمن</Nav.Link>
                         <Nav.Link>ارتباط با ما</Nav.Link>
+                        <Link to="/login" className="d-lg-none">
+                            <Button variant="warning" className="w-100">ورود / ثبت نام</Button>
+                        </Link>
                     </Nav>
                 </Navbar.Collapse>
+                <Link to="/login" className="d-none d-lg-block">
+                    <Button variant="warning">ورود / ثبت نام</Button>
+                </Link>
             </Container>
         </Navbar>
     )

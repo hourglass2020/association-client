@@ -1,13 +1,37 @@
-import { Col, Container, Image, Row } from "react-bootstrap";
+import { Col, Container, Image, Row, Spinner } from "react-bootstrap";
 import { Helmet } from "react-helmet-async";
 
 import BlogSlide from "./BlogSlide.jsx";
 import BlogNews from "./BlogNews.jsx";
 import BlogPopular from "./BlogPopular.jsx";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchArticles, selectAllArticles } from "../../reducers/articleSlice.js";
+import { useEffect } from "react";
 
 export default function Blog() {
-    const articles = useSelector((state) => state.articles);
+    const dispatch = useDispatch();
+    const articleStatus = useSelector(state => state.articles.status);
+    const articles = useSelector(selectAllArticles);
+    const error = useSelector(state => state.error);
+
+    useEffect(() => {
+        if (articleStatus === 'idle') {
+            dispatch(fetchArticles());
+        }
+    }, [articleStatus, dispatch])
+
+    let content;
+
+    if (articleStatus === "loading") {
+        content = <Spinner animation="border" variant="primary" />;
+    } else if (articleStatus === "completed") {
+        content = articles.map((article) => (
+            <BlogNews key={article.id} article={article} />
+        ));
+    } else if (articleStatus === "failed") {
+        content = <div>{error}</div>
+    }
+
 
     return (
         <div>
@@ -36,9 +60,7 @@ export default function Blog() {
                 <Row className={"mt-5"}>
                     <Col lg={8} md={12}>
                         <h3 className={"title"}>جدیدترین مقالات</h3>
-                        {articles.map((article) => (
-                            <BlogNews key={article.id} article={article} />
-                        ))}
+                        {content}
                         {/*  <Row>
                         <Col lg={6} md={12}>
                             <BlogNews/>

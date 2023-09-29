@@ -6,7 +6,7 @@ import { BsFillChatFill, BsFillHandThumbsUpFill, BsFillShareFill } from "react-i
 export default function BlogNews({ article }) {
     return (
         <article style={{ width: "100%" }}>
-            <Image src={`../images/${article.image}`} className={"w-100"} style={{ backgroundSize: "cover" }} rounded />
+            <Image src={`https://api.boxinoshop.com/uploads/thumbnails/${article.thumbnail}`} className={"w-100"} style={{ backgroundSize: "cover" }} rounded />
             <div className={"mt-3"}>
                 <h5 className={"text-black"}>{article.title}</h5>
                 <div className={"d-flex justify-content-between mt-2 mb-2"}>
@@ -30,7 +30,7 @@ export default function BlogNews({ article }) {
 
                 </div>
                 <p>
-                    {article.description}
+                    {article.content}
                 </p>
             </div>
         </article>

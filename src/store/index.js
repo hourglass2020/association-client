@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import courseReducer from "../reducers/courseSlice";
-import articleReducer from "../reducers/articleSlice";
+import articleReducer, { fetchArticles } from "../reducers/articleSlice";
 
 export const store = configureStore({
     reducer: {
@@ -9,3 +9,5 @@ export const store = configureStore({
         articles: articleReducer,
     }
 })
+
+store.dispatch(fetchArticles());

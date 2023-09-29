@@ -15,6 +15,8 @@ import Talangor from "./pages/talangor/Talangor.jsx";
 import Dashboard from "./pages/dashboard/Dashboard.jsx";
 import DashboardLanding from "./pages/dashboard/DashboardLanding.jsx";
 import EditCourse from "./pages/dashboard/EditCourse.jsx";
+import Login from "./pages/auth/Login.jsx";
+import Register from "./pages/auth/Register.jsx";
 
 const router = createBrowserRouter([
     {
@@ -28,6 +30,14 @@ const router = createBrowserRouter([
             {
                 path: "*",
                 element: <NotFound />,
+            },
+            {
+                path: 'login',
+                element: <Login />
+            },
+            {
+                path: 'register',
+                element: <Register />
             },
             {
                 path: "courses",
