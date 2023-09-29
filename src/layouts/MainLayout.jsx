@@ -7,7 +7,9 @@ export default function MainLayout() {
     return (
         <>
             <HeaderNav />
-            <Outlet />
+            <div style={{ minHeight: "90vh" }}>
+                <Outlet />
+            </div>
             <FooterNav />
         </>
     )

@@ -4,6 +4,7 @@ import { links } from "../../constants/particles.js";
 
 import LandingHeader from "./LandingHeader.jsx";
 import LandingFeatures from "./LandingFeatures.jsx";
+import Blog from "../blog/Blog.jsx";
 
 export default function Landing() {
 
@@ -12,8 +13,7 @@ export default function Landing() {
             <Helmet>
                 <title>انجمن علمی برق</title>
             </Helmet>
-            <LandingHeader />
-            <LandingFeatures />
+            <Blog />
         </div>
     )
 }

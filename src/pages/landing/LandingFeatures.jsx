@@ -41,8 +41,6 @@ export default function LandingFeatures() {
                 {features.map((feature) => (
                     <Col
                         sm={12}
-                        md={6}
-                        lg={3}
                         key={feature.title}
                         onClick={feature.link === "/talangor" ? handleClickTalangor : null}
                     >

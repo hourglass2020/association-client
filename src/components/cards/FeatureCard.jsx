@@ -1,18 +1,14 @@
-import {useNavigate} from "react-router-dom";
+import { Link } from "react-router-dom";
 
-export default function FeatureCard({title, image, link}) {
-    const navigator = useNavigate();
-
-    const onClick = () => {
-        navigator(link);
-    }
-
+export default function FeatureCard({ title, image, link }) {
     return (
-        <div className={"card-box feature-card mt-3 mt-lg-0"} onClick={onClick}>
-            <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-                <img src={image} alt={title} height={50} width={50}/>
-                <h3 className={"mt-2 me-1"}>{title}</h3>
+        <Link to={link} style={{ textDecoration: "none" }}>
+            <div className={"mt-2"}>
+                <div style={{ display: "flex", justifyContent: "start", alignItems: "center" }}>
+                    <img src={image} alt={title} height={30} width={30} />
+                    <h6 className={"mt-2 me-1 text-light"} >{title}</h6>
+                </div>
             </div>
-        </div>
+        </Link>
     )
 }

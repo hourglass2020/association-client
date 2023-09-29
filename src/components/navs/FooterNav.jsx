@@ -1,21 +1,18 @@
-import {Container, Nav, Navbar} from "react-bootstrap";
-import {Link} from "react-router-dom";
+import { Col, Container, Nav, Navbar, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import LandingFeatures from "../../pages/landing/LandingFeatures";
+import LandingHeader from "../../pages/landing/LandingHeader";
 
-export default function FooterNav(){
+export default function FooterNav() {
     return (
-        <Navbar bg={"light"} expand={"lg"}  variant={"light"}>
+        <Navbar
+            expand={"lg"}
+            variant={"dark"}
+            style={{ backgroundColor: "#5c00e6" }}
+        >
             <Container>
-                <Link to={"/"} style={{textDecoration: "none"}}>
-                    <Navbar.Brand>انجمن علمی برق</Navbar.Brand>
-                </Link>
-                <Navbar.Toggle aria-controls={"navbar-collapse"}></Navbar.Toggle>
-                <Navbar.Collapse id={"navbar-collapse"} className={"mt-1 me-2"}>
-                    <Nav>
-                        <Nav.Link>درباره انجمن</Nav.Link>
-                        <Nav.Link>ارتباط با ما</Nav.Link>
-                    </Nav>
-                </Navbar.Collapse>
+                <LandingHeader />
             </Container>
         </Navbar>
-    )
+    );
 }
