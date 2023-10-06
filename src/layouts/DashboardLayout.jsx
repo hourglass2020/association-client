@@ -3,8 +3,12 @@ import { Outlet } from 'react-router-dom'
 import { FaUserCircle } from 'react-icons/fa'
 import SidebarContent from '../components/sidebar/SidebarContent'
 import DashboardNav from '../components/navs/DashboardNav'
+import { decodeToken } from '../utils/helpers'
 
 export default function DashboardLayout({ items }) {
+
+    const { user } = decodeToken(localStorage.getItem("token"));
+
     return (
         <Row style={{ margin: 0, padding: 0 }}>
             <Col xs={0}
@@ -28,7 +32,7 @@ export default function DashboardLayout({ items }) {
 
                 <div className='card card-box bg-warning m-3 p-3 d-flex flex-row align-items-center'>
                     <FaUserCircle className="mx-1" size={"1.5rem"} />
-                    پوریا اقدم پور
+                    {`${user.firstname} ${user.lastname}`}
                 </div>
                 <SidebarContent itemsRef={items} />
             </Col>

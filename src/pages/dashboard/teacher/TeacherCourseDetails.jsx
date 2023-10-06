@@ -1,64 +1,47 @@
 import React, { useState } from "react";
-import { Form, Row, Col, Button, Container } from "react-bootstrap";
-import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-
-import { courseAdded } from "../../../reducers/courseSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { courseUpdated, selectCourseById } from "../../../reducers/courseSlice";
+import { Container, Form, Row, Button, Col, Alert } from "react-bootstrap";
 import Divider from "../../../components/Divider";
+import useSWR from "swr";
+import { SERVER_URL } from "../../../services";
+import toast from "react-hot-toast";
+import Loading from "../../../components/Loading";
 
-export default function CreateCourse() {
-    const navigator = useNavigate();
-    const dispatch = useDispatch();
+export default function TeacherCourseDetails() {
+    const { courseId } = useParams();
 
-    const [form, setForm] = useState({
-        title: "",
-        price: 0,
-        level: "",
-        length: "",
-        startDate: "",
-        endDate: "",
-        courseType: "",
-        courseStatus: "",
-        image: "pic6.jpg",
-        description: "",
-    });
-
-    const [validated, setValidated] = useState(false);
-
-    const handleChange = (e) => {
-        setForm({ ...form, [e.target.name]: e.target.value });
-    };
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const formState = event.currentTarget;
-
-        if (formState.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-            return;
+    const { data: course, error } = useSWR(`${SERVER_URL}/teachers/courses/${courseId}`, url => fetch(url, {
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
+    }).then(res => res.json()));
 
-        dispatch(courseAdded(form));
+    if (error) {
+        toast.error("مشکلی در دریافت اطلاعات پیش آمده است.");
+        return;
+    }
 
-        navigator("../courses");
+    if (!course) {
+        return <Loading />
+    }
 
-        setValidated(true);
-    };
+    const [form, setForm] = useState(course);
 
     return (
         <Container>
             <div className='d-flex my-3 justify-content-between'>
-                <h3>دوره جدید</h3>
+                <h3>دوره {course.title}</h3>
                 <Link to="../courses">
                     <Button variant='warning'>بازگشت</Button>
                 </Link>
             </div>
             <Container className='card-box card p-3 mb-2 pt-4'>
-                <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                <Form noValidate>
                     <Divider text="کلیات دوره" />
                     <Row className="my-3">
-                        <Form.Group as={Col} md="4" controlId="formTitle">
+                        <Form.Group as={Col} md="4" controlId="formTitle" >
                             <Form.Label>عنوان دوره</Form.Label>
                             <Form.Control
                                 required
@@ -66,14 +49,14 @@ export default function CreateCourse() {
                                 placeholder="دوره آرم پیشرفته"
                                 name="title"
                                 value={form.title}
-                                onChange={handleChange}
+                                readOnly
                             />
                             <Form.Control.Feedback>بسیار عالی!</Form.Control.Feedback>
                             <Form.Control.Feedback type="invalid">
                                 لطفا مجدد عنوان چک شود.
                             </Form.Control.Feedback>
                         </Form.Group>
-                        <Form.Group as={Col} md="4" controlId="formPrice">
+                        <Form.Group as={Col} md="4" controlId="formPrice" >
                             <Form.Label>قیمت</Form.Label>
                             <Form.Control
                                 required
@@ -81,20 +64,20 @@ export default function CreateCourse() {
                                 placeholder="100,000 هزار تومان"
                                 name="price"
                                 value={form.price}
-                                onChange={handleChange}
+                                readOnly
                             />
                             <Form.Control.Feedback>بسیار عالی!</Form.Control.Feedback>
                             <Form.Control.Feedback type="invalid">
                                 لطفا قیمت عنوان چک شود.
                             </Form.Control.Feedback>
                         </Form.Group>
-                        <Form.Group as={Col} md="4" controlId="formLevel">
+                        <Form.Group as={Col} md="4" controlId="formLevel" >
                             <Form.Label>سطح دوره</Form.Label>
                             <Form.Select
                                 aria-label="Default select example"
                                 name="level"
                                 value={form.level}
-                                onChange={handleChange}
+                                readOnly
                             >
                                 <option value="elementry">مقدماتی</option>
                                 <option value="intermediate">متوسط</option>
@@ -109,20 +92,20 @@ export default function CreateCourse() {
                                 aria-label="Default select example"
                                 name="courseType"
                                 value={form.courseType}
-                                onChange={handleChange}
+                                readOnly
                             >
                                 <option value="course">دوره</option>
                                 <option value="webinar">وبینار</option>
                                 <option value="seminar">سمینار</option>
                             </Form.Select>
                         </Form.Group>
-                        <Form.Group as={Col} md="4" controlId="formCourseStatus">
+                        <Form.Group as={Col} md="4" controlId="formCourseStatus" readOnly>
                             <Form.Label>شرایط دوره</Form.Label>
                             <Form.Select
                                 aria-label="Default select example"
                                 name="courseStatus"
                                 value={form.courseStatus}
-                                onChange={handleChange}
+
                             >
                                 <option value="registering">در حال ثبت‌نام</option>
                                 <option value="performing">در حال برگزاری</option>
@@ -144,7 +127,7 @@ export default function CreateCourse() {
                                 required
                                 name="description"
                                 value={form.description}
-                                onChange={handleChange}
+                                readOnly
                             />
                             <Form.Control.Feedback>بسیار عالی!</Form.Control.Feedback>
                             <Form.Control.Feedback type="invalid">
@@ -162,7 +145,7 @@ export default function CreateCourse() {
                                 required
                                 name="length"
                                 value={form.length}
-                                onChange={handleChange}
+                                readOnly
                             />
                             <Form.Control.Feedback>بسیار عالی!</Form.Control.Feedback>
                             <Form.Control.Feedback type="invalid">
@@ -177,7 +160,7 @@ export default function CreateCourse() {
                                 required
                                 name="startDate"
                                 value={form.startDate}
-                                onChange={handleChange}
+                                readOnly
                             />
                             <Form.Control.Feedback>بسیار عالی!</Form.Control.Feedback>
                             <Form.Control.Feedback type="invalid">
@@ -192,7 +175,7 @@ export default function CreateCourse() {
                                 required
                                 name="endDate"
                                 value={form.endDate}
-                                onChange={handleChange}
+                                readOnly
                             />
                             <Form.Control.Feedback>بسیار عالی!</Form.Control.Feedback>
                             <Form.Control.Feedback type="invalid">
@@ -201,12 +184,9 @@ export default function CreateCourse() {
                         </Form.Group>
                     </Row>
                     <div className="d-flex justify-content-end">
-                        <Button type="submit" >
-                            ثبت نام دوره
-                        </Button>
                     </div>
                 </Form>
             </Container>
-        </Container >
-    );
+        </Container>
+    )
 }

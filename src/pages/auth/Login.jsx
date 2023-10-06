@@ -2,9 +2,12 @@ import { useState } from 'react';
 import { Button, Col, Container, Form, Image, Row } from 'react-bootstrap'
 
 import AuthIcon from "../../assets/images/auth.png";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { loginTeacher } from '../../services/teacherServices';
+import toast from 'react-hot-toast';
 
 export default function Login() {
+    const navigator = useNavigate();
     const [form, setForm] = useState({});
 
     const [validated, setValidated] = useState(false);
@@ -13,16 +16,23 @@ export default function Login() {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const formState = event.currentTarget;
 
-        /* 
-                if (formState.checkValidity() === false) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    return;
-                } */
+        if (formState.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+            return;
+        }
+
+        const { data, status } = await loginTeacher(form);
+
+        if (status === 200) {
+            localStorage.setItem("token", data.token);
+            navigator("/teacher-panel");
+            toast.success("ورود با موفقیت انجام شد.");
+        }
 
 
         setValidated(true);
@@ -49,7 +59,7 @@ export default function Login() {
                                 />
                                 <Form.Control.Feedback>بسیار عالی!</Form.Control.Feedback>
                                 <Form.Control.Feedback type="invalid">
-                                    لطفا مجدد عنوان چک شود.
+                                    لطفا مجدد نام کاربری چک شود.
                                 </Form.Control.Feedback>
                             </Form.Group>
                             <Form.Group controlId="formPassword" className='mt-3'>
@@ -63,7 +73,7 @@ export default function Login() {
                                 />
                                 <Form.Control.Feedback>بسیار عالی!</Form.Control.Feedback>
                                 <Form.Control.Feedback type="invalid">
-                                    لطفا قیمت عنوان چک شود.
+                                    لطفا رمز عبور چک شود.
                                 </Form.Control.Feedback>
                             </Form.Group>
                             <Button variant='warning' type="submit" className='w-100 mt-4'>ورود</Button>
