@@ -4,13 +4,16 @@ import { getAllArticles } from "../services/articleServices";
 const initialState = {
     articles: [],
     status: "idle",
-    error: null
-}
+    error: null,
+};
 
-export const fetchArticles = createAsyncThunk('articles/fetchArticles', async () => {
-    const { data } = await getAllArticles();
-    return data;
-});
+export const fetchArticles = createAsyncThunk(
+    "articles/fetchArticles",
+    async () => {
+        const { data } = await getAllArticles();
+        return data;
+    }
+);
 
 const articleSlice = createSlice({
     name: "articles",
@@ -24,31 +27,31 @@ const articleSlice = createSlice({
                 return {
                     payload: {
                         id: nanoid(),
-                        ...articleBody
-                    }
-                }
-            }
-        }
+                        ...articleBody,
+                    },
+                };
+            },
+        },
     },
     extraReducers: (builder) => {
         builder
             .addCase(fetchArticles.pending, (state, action) => {
-                state.status = 'loading';
+                state.status = "loading";
             })
             .addCase(fetchArticles.fulfilled, (state, action) => {
-                state.status = 'completed';
+                state.status = "completed";
                 state.articles = action.payload;
             })
             .addCase(fetchArticles.rejected, (state, action) => {
-                state.status = 'failed';
+                state.status = "failed";
                 state.error = action.error.message;
             });
-    }
-})
+    },
+});
 
-export const selectAllArticles = state => state.articles.articles;
+export const selectAllArticles = (state) => state.articles.articles;
 
-export const selectArticlById = state => (state, articleId) =>
+export const selectArticlById = (state) => (state, articleId) =>
     state.articles.articles.find((article) => article.id === articleId);
 
 export default articleSlice.reducer;

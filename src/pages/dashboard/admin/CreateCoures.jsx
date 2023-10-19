@@ -3,12 +3,13 @@ import { Form, Row, Col, Button, Container } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
-import { courseAdded } from "../../../reducers/courseSlice";
+import { addNewCourse, courseAdded } from "../../../reducers/courseSlice";
 import Divider from "../../../components/Divider";
 
 export default function CreateCourse() {
     const navigator = useNavigate();
     const dispatch = useDispatch();
+    const [requestStatus, setRequestStatus] = useState("idle");
 
     const [form, setForm] = useState({
         title: "",
@@ -19,17 +20,22 @@ export default function CreateCourse() {
         endDate: "",
         courseType: "",
         courseStatus: "",
-        image: "pic6.jpg",
+        image: null,
         description: "",
     });
 
     const [validated, setValidated] = useState(false);
 
     const handleChange = (e) => {
+        if (e.target.name === "image") {
+            setForm({ ...form, [e.target.name]: e.target.files[0] });
+            return;
+        }
+
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const formState = event.currentTarget;
 
@@ -39,22 +45,41 @@ export default function CreateCourse() {
             return;
         }
 
-        dispatch(courseAdded(form));
-
-        navigator("../courses");
-
         setValidated(true);
+
+        let formData = new FormData();
+        formData.append("startDate", new Date(form.startDate));
+        formData.append("endDate", new Date(form.endDate));
+        formData.append("title", form.title);
+        formData.append("price", form.price);
+        formData.append("level", form.level);
+        formData.append("length", form.length);
+        formData.append("courseType", form.courseType);
+        formData.append("image", form.image);
+        formData.append("description", form.description);
+
+        try {
+            setRequestStatus("pending");
+            await dispatch(
+                addNewCourse(formData)
+            );
+            navigator("../courses");
+        } catch (error) {
+            console.error("Failed to save the blog", error);
+        } finally {
+            setRequestStatus("idle");
+        }
     };
 
     return (
         <Container>
-            <div className='d-flex my-3 justify-content-between'>
+            <div className="d-flex my-3 justify-content-between">
                 <h3>دوره جدید</h3>
                 <Link to="../courses">
-                    <Button variant='warning'>بازگشت</Button>
+                    <Button variant="warning">بازگشت</Button>
                 </Link>
             </div>
-            <Container className='card-box card p-3 mb-2 pt-4'>
+            <Container className="card-box card p-3 mb-2 pt-4">
                 <Form noValidate validated={validated} onSubmit={handleSubmit}>
                     <Divider text="کلیات دوره" />
                     <Row className="my-3">
@@ -132,7 +157,7 @@ export default function CreateCourse() {
                         </Form.Group>
                         <Form.Group as={Col} md="4" controlId="formImage" className="mb-3">
                             <Form.Label>عکس دوره</Form.Label>
-                            <Form.Control type="file" />
+                            <Form.Control type="file" name="image" onChange={handleChange} />
                         </Form.Group>
                     </Row>
                     <Row className="mb-3">
@@ -201,12 +226,10 @@ export default function CreateCourse() {
                         </Form.Group>
                     </Row>
                     <div className="d-flex justify-content-end">
-                        <Button type="submit" >
-                            ثبت نام دوره
-                        </Button>
+                        <Button type="submit">ثبت نام دوره</Button>
                     </div>
                 </Form>
             </Container>
-        </Container >
+        </Container>
     );
 }

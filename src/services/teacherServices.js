@@ -28,8 +28,12 @@ export const getTeacherCourses = async () => {
 
 // @desc    handle create new course
 // @route   POST /teachers/courses
-export const createNewCourse = async (body) => {
-    return axios.post(`${SERVER_URL}/courses`, body);
+export const createCourse = async (body) => {
+    return axios.post(`${SERVER_URL}/courses`, body, {
+        headers: {
+            Authorization: `Barear ${localStorage.getItem("token")}`
+        }
+    });
 }
 
 // @desc    handle update a course

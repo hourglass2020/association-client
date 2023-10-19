@@ -10,7 +10,7 @@ export default function CourseCard({ title, image, price, link }) {
                 <Card.Img
                     height={150}
                     variant={"top"}
-                    src={`../../images/${image}`}
+                    src={`http://localhost:7000/uploads/images/${image}`}
                     alt={title}
                 />
                 <Card.Body>

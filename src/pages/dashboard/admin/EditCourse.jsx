@@ -63,7 +63,7 @@ export default function EditCourse() {
                     return;
                 } */
 
-        dispatch(courseUpdated(form));
+        // dispatch(courseUpdated(form));
 
         navigator(`../../courses/${courseId}`);
 

@@ -5,20 +5,24 @@ import BlogSlide from "./BlogSlide.jsx";
 import BlogNews from "./BlogNews.jsx";
 import BlogPopular from "./BlogPopular.jsx";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchArticles, selectAllArticles } from "../../reducers/articleSlice.js";
+import {
+    fetchArticles,
+    selectAllArticles,
+} from "../../reducers/articleSlice.js";
 import { useEffect } from "react";
+import Article from "../../assets/icons/blog.png";
 
 export default function Blog() {
     const dispatch = useDispatch();
-    const articleStatus = useSelector(state => state.articles.status);
+    const articleStatus = useSelector((state) => state.articles.status);
     const articles = useSelector(selectAllArticles);
-    const error = useSelector(state => state.error);
+    const error = useSelector((state) => state.error);
 
     useEffect(() => {
-        if (articleStatus === 'idle') {
+        if (articleStatus === "idle") {
             dispatch(fetchArticles());
         }
-    }, [articleStatus, dispatch])
+    }, [articleStatus, dispatch]);
 
     let content;
 
@@ -26,12 +30,13 @@ export default function Blog() {
         content = <Spinner animation="border" variant="primary" />;
     } else if (articleStatus === "completed") {
         content = articles.map((article) => (
-            <BlogNews key={article.id} article={article} />
+            <div key={article.id}>
+                <BlogNews key={article.id} article={article} />
+            </div>
         ));
     } else if (articleStatus === "failed") {
-        content = <div>{error}</div>
+        content = <div>{error}</div>;
     }
-
 
     return (
         <div>
@@ -39,6 +44,16 @@ export default function Blog() {
                 <title>وبلاگ انجمن</title>
             </Helmet>
             <Container className={"mt-4"}>
+                <div className={"d-flex align-items-center mb-3"}>
+                    <Image
+                        src={Article}
+                        alt={"article"}
+                        className={"mt-2 ms-2"}
+                        height={50}
+                        width={50}
+                    />
+                    <h3 className={"mt-4"}>وبلاگ انجمن علمی برق</h3>
+                </div>
                 <Row className={"position-relative"}>
                     <Col lg={8} md={12} className={" position-relative h-100"}>
                         <BlogSlide />

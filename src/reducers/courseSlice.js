@@ -1,41 +1,34 @@
-import { createSlice, nanoid } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, nanoid } from "@reduxjs/toolkit";
+import { getAllCourses } from "../services/mainServices";
+import { createCourse } from "../services/teacherServices";
 
 const initialState = {
-    courses: [
-        {
-            id: nanoid(),
-            title: "title1",
-            price: 120000,
-            level: "elementry",
-            length: "2h",
-            startDate: "2023-01-02",
-            courseType: "course",
-            courseStatus: "stopped",
-            image: "pic7.jpg",
-            description: "description1",
-        },
-        {
-            id: nanoid(),
-            title: "title2",
-            price: 140000,
-            level: "elementry",
-            length: "4h",
-            startDate: "2023-06-23",
-            courseType: "course",
-            courseStatus: "stopped",
-            image: "pic8.jpg",
-            description: "description2",
-        },
-    ],
+    courses: [],
+    status: "idle",
+    error: null,
 };
+
+export const fetchCourses = createAsyncThunk(
+    "courses/fetchCourses",
+    async () => {
+        const { data } = await getAllCourses();
+        return data;
+    }
+);
+
+export const addNewCourse = createAsyncThunk("courses/addNewCourse", async initialCourse => {
+    const { data } = await createCourse(initialCourse);
+    return data;
+})
+
 
 const courseSlice = createSlice({
     name: "courses",
     initialState,
     reducers: {
         /* courseAdded: (state, action) => {
-                    state.push(action.payload);
-                } */
+                            state.push(action.payload);
+                        } */
         // Complex logic
         courseAdded: {
             reducer(state, action) {
@@ -64,6 +57,24 @@ const courseSlice = createSlice({
             const { id } = action.payload;
             state.courses = state.courses.filter((course) => course.id !== id);
         },
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(fetchCourses.pending, (state, action) => {
+                state.status = "loading";
+            })
+            .addCase(fetchCourses.fulfilled, (state, action) => {
+                state.status = "completed";
+                state.courses = action.payload;
+            })
+            .addCase(fetchCourses.rejected, (state, action) => {
+                state.status = "failed";
+                state.error = action.error.message;
+            })
+            .addCase(addNewCourse.fulfilled, (state, action) => {
+                state.courses.push(action.payload);
+            })
+            ;
     },
 });
 
