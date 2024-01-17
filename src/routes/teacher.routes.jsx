@@ -1,6 +1,4 @@
 import DashboardLayout from "../layouts/DashboardLayout"
-import EditCourse from "../pages/dashboard/admin/EditCourse"
-import CreateCourse from "../pages/dashboard/admin/CreateCoures"
 import NotFound from "../pages/NotFound"
 import TeacherDashboardLanding from "../pages/dashboard/teacher/TeacherDashboardLanding"
 import TeacherCourses from "../pages/dashboard/teacher/TeacherCourses"
@@ -49,13 +47,6 @@ export const teacherRoutes = [
                 element: <TeacherCourseDetails />
             },
             {
-                path: 'new-course',
-                element: <CreateCourse />
-            },
-            {
-                path: "edit-course/:courseId",
-                element: <EditCourse />
-            }, {
                 path: "*",
                 element: <NotFound />
             }

@@ -1,6 +1,5 @@
 import Landing from "../pages/landing/Landing.jsx";
 import NotFound from "../pages/NotFound.jsx";
-import { Courses } from "../pages/courses/Courses.jsx";
 import Course from "../pages/course/Course.jsx";
 import Blog from "../pages/blog/Blog.jsx";
 import { Webinars } from "../pages/webinars/Webinars.jsx";
@@ -8,9 +7,11 @@ import Webinar from "../pages/webinar/Webinar.jsx";
 import Talangor from "../pages/talangor/Talangor.jsx";
 import Login from "../pages/auth/Login.jsx";
 import Register from "../pages/auth/Register.jsx";
+import CoursePage from "../pages/course/CoursePage.jsx";
+import CoursesSection from "../pages/courses/CoursesSection.jsx";
+import BlogSection from "../pages/blog/BlogSection.jsx";
 
 export const landingRoutes = [
-
     {
         path: "",
         element: <Landing />,
@@ -29,15 +30,15 @@ export const landingRoutes = [
     },
     {
         path: "courses",
-        element: <Courses />,
+        element: <CoursesSection />,
     },
     {
         path: "courses/:courseId",
-        element: <Course />,
+        element: <CoursePage />,
     },
     {
         path: "blog",
-        element: <Blog />,
+        element: <BlogSection />,
     },
     {
         path: "webinars",

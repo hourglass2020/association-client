@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Button } from "react-bootstrap";
 import {
     BsCash,
@@ -6,8 +7,14 @@ import {
     BsLayersFill,
     BsPersonCircle,
 } from "react-icons/all.js";
+import CourseRegister from "../../components/course/CourseRegister";
 
 export default function CourseInfo({ data }) {
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
     return (
         <section className={"card-box card px-0 pt-3"}>
             <ul className="pe-4" style={{ listStyle: "none" }}>
@@ -40,9 +47,10 @@ export default function CourseInfo({ data }) {
                     </p>
                 </li>
             </ul>
-            <Button variant={"primary"} className={"mx-3 mb-2"}>
+            <Button variant={"primary"} className={"mx-3 mb-3"} onClick={handleShow}>
                 ثبت نام
             </Button>
+            <CourseRegister show={show} handleClose={handleClose} />
         </section>
     );
 }

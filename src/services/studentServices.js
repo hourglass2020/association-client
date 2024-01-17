@@ -1,10 +1,13 @@
-import axios from "axios"
+import axios from "axios";
 
-const SERVER_URL = "http://localhost:7000/students"
+import { SERVER_URL } from ".";
 
 // @desc    handle login
 // @route   POST /students/login
-export const loginAdmin = async (body) => {
-    return axios.post(`${SERVER_URL}/login`, body);
+export const loginStudent = async (body) => {
+    return axios.post(`${SERVER_URL}/students/login`, body);
 }
 
+export const registerStudent = async (body) => {
+    return axios.post(`${SERVER_URL}/students/register`, (body));
+}

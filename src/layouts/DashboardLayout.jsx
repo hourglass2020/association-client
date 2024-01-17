@@ -30,7 +30,7 @@ export default function DashboardLayout({ items }) {
                     boxShadow: "0px 4px 7px -1px rgba(0, 0, 0, 0.25)"
                 }}>
 
-                <div className='card card-box bg-warning m-3 p-3 d-flex flex-row align-items-center'>
+                <div className='card card-box bg-warning m-3 p-2 d-flex flex-row align-items-center'>
                     <FaUserCircle className="mx-1" size={"1.5rem"} />
                     {`${user.firstname} ${user.lastname}`}
                 </div>

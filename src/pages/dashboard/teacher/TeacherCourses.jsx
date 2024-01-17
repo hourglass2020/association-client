@@ -1,17 +1,21 @@
 import React from 'react'
 import { Button, Container } from 'react-bootstrap'
 import useSWR from 'swr'
-import toast from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+
+import toast from 'react-hot-toast';
+import { FiEdit } from 'react-icons/fi';
+import { BsFillEyeFill } from 'react-icons/bs';
 
 import { SERVER_URL } from '../../../services'
 import Loading from '../../../components/Loading';
 import { formatDate, numberFormat } from "../../../utils/helpers";
-
-import { FiEdit } from 'react-icons/fi';
-import { BsFillEyeFill } from 'react-icons/bs';
+import DeleteModal from '../../../components/modals/DeleteModal';
+import { deleteApiCourse } from '../../../reducers/courseSlice';
 
 export default function TeacherCourses() {
+    const dispatch = useDispatch();
 
     const { data, error } = useSWR(`${SERVER_URL}/teachers/courses`, url => fetch(url, {
         headers: {
@@ -26,6 +30,12 @@ export default function TeacherCourses() {
 
     if (!data) {
         return <Loading />
+    }
+
+    const handleDelete = (courseId) => {
+        if (courseId) {
+            dispatch(deleteApiCourse(courseId));
+        }
     }
 
     return (
@@ -72,6 +82,7 @@ export default function TeacherCourses() {
                                                     ویرایش
                                                 </button>
                                             </Link>
+                                            <DeleteModal title={"دوره"} onDelete={() => handleDelete(course.id)} />
                                         </div>
                                     </td>
 

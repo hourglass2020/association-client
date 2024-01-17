@@ -1,10 +1,14 @@
 import { useState } from 'react';
 import { Button, Col, Container, Form, Image, Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
+
 import AuthIcon from "../../assets/images/auth.png";
-import Divider from '../../components/Divider';
+import { registerStudent } from '../../services/studentServices';
 
 export default function Register() {
+    const navigator = useNavigate();
+
     const [form, setForm] = useState({});
 
     const [validated, setValidated] = useState(false);
@@ -13,17 +17,22 @@ export default function Register() {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const formState = event.currentTarget;
 
-        /* 
-                if (formState.checkValidity() === false) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    return;
-                } */
+        if (formState.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+            return;
+        }
 
+        const { data, status } = await registerStudent(form);
+
+        if (status === 201) {
+            navigator("/login");
+            toast.success("ثبت نام با موفقیت انجام شد.");
+        }
 
         setValidated(true);
     };
@@ -43,7 +52,7 @@ export default function Register() {
                                     <Form.Control
                                         required
                                         type="text"
-                                        name="email"
+                                        name="firstname"
                                         value={form.firstname}
                                         onChange={handleChange}
                                     />

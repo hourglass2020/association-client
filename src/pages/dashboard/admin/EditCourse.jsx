@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { courseUpdated, selectCourseById } from "../../../reducers/courseSlice";
+import { courseUpdated, selectCourseById, updateApiCourse } from "../../../reducers/courseSlice";
 import { Container, Form, Row, Button, Col, Alert } from "react-bootstrap";
 import Divider from "../../../components/Divider";
 import useSWR from "swr";
@@ -10,6 +10,8 @@ import toast from "react-hot-toast";
 import Loading from "../../../components/Loading";
 
 export default function EditCourse() {
+    const [form, setForm] = useState();
+    const [validated, setValidated] = useState(false);
     const { courseId } = useParams();
     const navigator = useNavigate();
     const dispatch = useDispatch();
@@ -28,25 +30,22 @@ export default function EditCourse() {
         } */
 
 
-    const { data: course, error } = useSWR(`${SERVER_URL}/teachers/courses/${courseId}`, url => fetch(url, {
+    const { data: course, error, isLoading } = useSWR(`${SERVER_URL}/teachers/courses/${courseId}`, url => fetch(url, {
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
-    }).then(res => res.json()));
+    }).then(res => res.json()), {
+        onSuccess: (data) => setForm(data)
+    });
 
     if (error) {
         toast.error("مشکلی در دریافت اطلاعات پیش آمده است.");
         return;
     }
 
-    if (!course) {
+    if (isLoading) {
         return <Loading />
     }
-
-
-    const [form, setForm] = useState(course);
-
-    const [validated, setValidated] = useState(false);
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -55,17 +54,16 @@ export default function EditCourse() {
     const handleSubmit = (event) => {
         event.preventDefault();
         const formState = event.currentTarget;
-
         /* 
                 if (formState.checkValidity() === false) {
                     event.preventDefault();
                     event.stopPropagation();
                     return;
-                } */
+                }
+         */
+        dispatch(updateApiCourse(form));
 
-        // dispatch(courseUpdated(form));
-
-        navigator(`../../courses/${courseId}`);
+        navigator(`../courses`);
 
         setValidated(true);
     };
@@ -89,7 +87,7 @@ export default function EditCourse() {
                                 type="text"
                                 placeholder="دوره آرم پیشرفته"
                                 name="title"
-                                value={form.title}
+                                value={form?.title}
                                 onChange={handleChange}
                             />
                             <Form.Control.Feedback>بسیار عالی!</Form.Control.Feedback>
@@ -104,7 +102,7 @@ export default function EditCourse() {
                                 type="number"
                                 placeholder="100,000 هزار تومان"
                                 name="price"
-                                value={form.price}
+                                value={form?.price}
                                 onChange={handleChange}
                             />
                             <Form.Control.Feedback>بسیار عالی!</Form.Control.Feedback>
@@ -117,7 +115,7 @@ export default function EditCourse() {
                             <Form.Select
                                 aria-label="Default select example"
                                 name="level"
-                                value={form.level}
+                                value={form?.level}
                                 onChange={handleChange}
                             >
                                 <option value="elementry">مقدماتی</option>
@@ -132,7 +130,7 @@ export default function EditCourse() {
                             <Form.Select
                                 aria-label="Default select example"
                                 name="courseType"
-                                value={form.courseType}
+                                value={form?.courseType}
                                 onChange={handleChange}
                             >
                                 <option value="course">دوره</option>
@@ -145,7 +143,7 @@ export default function EditCourse() {
                             <Form.Select
                                 aria-label="Default select example"
                                 name="courseStatus"
-                                value={form.courseStatus}
+                                value={form?.courseStatus}
                                 onChange={handleChange}
                             >
                                 <option value="registering">در حال ثبت‌نام</option>
@@ -167,7 +165,7 @@ export default function EditCourse() {
                                 rows={2}
                                 required
                                 name="description"
-                                value={form.description}
+                                value={form?.description}
                                 onChange={handleChange}
                             />
                             <Form.Control.Feedback>بسیار عالی!</Form.Control.Feedback>
@@ -185,7 +183,7 @@ export default function EditCourse() {
                                 placeholder="به عنوان مثال: 20h 30m"
                                 required
                                 name="length"
-                                value={form.length}
+                                value={form?.length}
                                 onChange={handleChange}
                             />
                             <Form.Control.Feedback>بسیار عالی!</Form.Control.Feedback>
@@ -200,7 +198,7 @@ export default function EditCourse() {
                                 placeholder="به عنوان مثال: 03-06-2023"
                                 required
                                 name="startDate"
-                                value={form.startDate}
+                                value={form?.startDate}
                                 onChange={handleChange}
                             />
                             <Form.Control.Feedback>بسیار عالی!</Form.Control.Feedback>
@@ -215,7 +213,7 @@ export default function EditCourse() {
                                 placeholder="به عنوان مثال: 03-06-2023"
                                 required
                                 name="endDate"
-                                value={form.endDate}
+                                value={form?.endDate}
                                 onChange={handleChange}
                             />
                             <Form.Control.Feedback>بسیار عالی!</Form.Control.Feedback>

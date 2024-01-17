@@ -1,7 +1,7 @@
 import { Col, Container, Image, Row, Spinner } from "react-bootstrap";
 import { Helmet } from "react-helmet-async";
 
-import BlogSlide from "./BlogSlide.jsx";
+import HeaderSlide from "../../components/landing/HeaderSlide.jsx";
 import BlogNews from "./BlogNews.jsx";
 import BlogPopular from "./BlogPopular.jsx";
 import { useDispatch, useSelector } from "react-redux";
@@ -56,17 +56,17 @@ export default function Blog() {
                 </div>
                 <Row className={"position-relative"}>
                     <Col lg={8} md={12} className={" position-relative h-100"}>
-                        <BlogSlide />
+                        <HeaderSlide />
                     </Col>
                     <Col lg={4} md={12} className={"mt-3 mt-lg-0"}>
                         <Row>
                             <Col>
-                                <BlogSlide />
+                                <HeaderSlide />
                             </Col>
                         </Row>
                         <Row className={"mt-3"}>
                             <Col>
-                                <BlogSlide />
+                                <HeaderSlide />
                             </Col>
                         </Row>
                     </Col>
